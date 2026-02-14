@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GBC Annual Corporate Meeting - February 25, 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            overflow: hidden;
+            font-family: 'Cinzel', serif;
+            color: #ffd700;
+        }
+        
+        /* Background */
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0a0a2e 0%, #000 100%);
+        }
+        
+        /* Stars */
+        .stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Bifrost rainbow swirl */
+        .bifrost {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            left: -50%;
+            top: -50%;
+            opacity: 0;
+            background: conic-gradient(
+                from 0deg,
+                rgba(255,0,0,0.3),
+                rgba(255,127,0,0.3),
+                rgba(255,255,0,0.3),
+                rgba(0,255,0,0.3),
+                rgba(0,0,255,0.3),
+                rgba(75,0,130,0.3),
+                rgba(148,0,211,0.3),
+                rgba(255,0,0,0.3)
+            );
+            animation: rotateBifrost 8s linear infinite;
+            pointer-events: none;
+        }
+        
+        .bifrost.active {
+            opacity: 0.4;
+        }
+        
+        @keyframes rotateBifrost {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Lightning flash */
+        .lightning {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.4), transparent);
+            pointer-events: none;
+        }
+        
+        .lightning.flash {
+            animation: lightningFlash 0.3s;
+        }
+        
+        @keyframes lightningFlash {
+            0%, 100% { opacity: 0; }
+            10%, 30%, 50% { opacity: 1; }
+        }
+        
+        /* Start screen */
+        .start-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: #000;
+        }
+        
+        .start-screen.hidden {
+            display: none;
+        }
+        
+        .start-screen h1 {
+            font-size: 3em;
+            color: #ffd700;
+            text-align: center;
+            margin-bottom: 2em;
+            text-shadow: 0 0 30px #ffd700;
+        }
+        
+        .start-screen .instructions {
+            color: #aaa;
+            font-size: 1.2em;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: 2em;
+        }
+        
+        .start-button {
+            padding: 1.5em 3em;
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+            border: none;
+            font-size: 1.5em;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            box-shadow: 0 0 30px #ffd700;
+            transition: all 0.3s;
+        }
+        
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px #ffd700;
+        }
+        
+        /* Content container */
+        .content {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+        
+        .content.active {
+            display: flex;
+        }
+        
+        /* Segments */
+        .segment {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            padding: 2em;
+        }
+        
+        .segment.show {
+            animation: fadeIn 1s forwards;
+        }
+        
+        .segment.hide {
+            animation: fadeOut 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        /* Typography */
+        .segment h1 {
+            font-size: 6em;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 40px #ffd700, 0 0 80px #ffd700;
+            margin-bottom: 0.2em;
+            letter-spacing: 0.1em;
+        }
+        
+        .segment h2 {
+            font-size: 4em;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 30px #00d4ff;
+            margin: 0.3em 0;
+        }
+        
+        .segment p {
+            font-size: 2.5em;
+            color: #ddd;
+            line-height: 1.5;
+            max-width: 900px;
+            margin: 0.5em 0;
+        }
+        
+        .emphasis {
+            color: #ffd700;
+            font-weight: 700;
+            text-shadow: 0 0 20px #ffd700;
+        }
+        
+        .date {
+            font-size: 4.5em !important;
+            color: #ff8c00;
+            text-shadow: 0 0 40px #ff8c00;
+            font-weight: 900;
+        }
+        
+        /* Years animation (2003 to 2026) */
+        .years {
+            font-size: 8em;
+            font-weight: 900;
+            color: #ffd700;
+            text-shadow: 0 0 60px #ffd700;
+        }
+        
+        /* Building image */
+        .building-image {
+            max-width: 60%;
+            max-height: 60%;
+            opacity: 0;
+            filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.6));
+        }
+        
+        .building-image.show {
+            animation: buildingReveal 2s forwards;
+        }
+        
+        @keyframes buildingReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+                filter: drop-shadow(0 0 0px rgba(255, 215, 0, 0));
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 0.8));
+            }
+        }
+        
+        /* Logo */
+        .logo {
+            max-width: 500px;
+            max-height: 500px;
+            opacity: 0;
+            filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
+        }
+        
+        .logo.show {
+            animation: logoReveal 2s forwards;
+        }
+        
+        @keyframes logoReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Deep blue background for logo */
+        .deep-blue-bg {
+            background: radial-gradient(circle at center, #0a1a4d 0%, #000 100%);
+        }
+        
+        /* Scripture style */
+        .scripture {
+            font-size: 2.2em !important;
+            font-style: italic;
+            color: #aaa;
+            line-height: 1.8;
+            margin-top: 1em;
+        }
+        
+        .reference {
+            font-size: 1.8em !important;
+            color: #ffd700;
+            margin-top: 0.5em;
+        }
+        
+        /* Text overlay */
+        .text-overlay {
+            font-size: 2.8em;
+            color: #ffd700;
+            font-weight: 700;
+            text-shadow: 0 0 30px #ffd700;
+            margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background layers -->
+    <div class="background"></div>
+    <div class="stars" id="stars"></div>
+    <div class="bifrost" id="bifrost"></div>
+    <div class="lightning" id="lightning"></div>
+    
+    <!-- Start Screen -->
+    <div class="start-screen" id="startScreen">
+        <h1>GBC Annual Corporate Meeting</h1>
+        <div class="instructions">
+            <p><strong>Instructions for Recording:</strong></p>
+            <p>1. Start your screen recording software (OBS, QuickTime, etc.)</p>
+            <p>2. Click the button below to begin</p>
+            <p>3. Read the script (see separate timing guide)</p>
+            <p>4. Music will play automatically</p>
+            <p>5. Total length: 27-28 seconds</p>
+        </div>
+        <button class="start-button" onclick="startPresentation()">START PRESENTATION</button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content" id="content">
+        <!-- Segment 1: The Journey (0-6 sec) -->
+        <div class="segment" id="segment1">
+            <h1 class="years" id="year">2003</h1>
+        </div>
+        
+        <!-- Segment 2: The Meeting (6-17 sec) -->
+        <div class="segment" id="segment2">
+            <h2>ANNUAL CORPORATE MEETING</h2>
+            <p class="date">February 25, 2026</p>
+            <!-- Building image will be added here -->
+            <img id="buildingImg" class="building-image" alt="Church Building">
+        </div>
+        
+        <!-- Segment 3: The Why (17-21 sec) -->
+        <div class="segment" id="segment3">
+            <img id="buildingImg2" class="building-image" alt="Church Building">
+            <p class="text-overlay">BUILDING PURCHASED • MISSION EXPANDING</p>
+        </div>
+        
+        <!-- Segment 4: Call to Action (21-23 sec) -->
+        <div class="segment" id="segment4">
+            <h1>YOUR PARTICIPATION</h1>
+            <h1 class="emphasis">IS ESSENTIAL</h1>
+        </div>
+        
+        <!-- Segment 5: Scripture & Logo (23-27 sec) -->
+        <div class="segment deep-blue-bg" id="segment5">
+            <p class="scripture" id="scripture">"The word of God continued<br>to spread and flourish"</p>
+            <p class="reference">Acts 12:24</p>
+            <img id="logoImg" class="logo" alt="GBC Logo">
+        </div>
+    </div>
+    
+    <!-- Audio -->
+    <audio id="bgMusic" preload="auto">
+        <!-- Music file will be loaded via JavaScript -->
+    </audio>
+    
+    <script>
+        // Create starfield
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // Timing sequence
+        const sequence = [
+            { segment: 1, duration: 6000, effects: ['lightning', 'yearTransition'] },
+            { segment: 2, duration: 11000, effects: ['bifrost', 'showBuilding'] },
+            { segment: 3, duration: 4000, effects: ['lightning', 'showBuilding2'] },
+            { segment: 4, duration: 2000, effects: ['lightning', 'bifrost'] },
+            { segment: 5, duration: 5000, effects: ['bifrost', 'showLogo'] }
+        ];
+        
+        let currentStep = 0;
+        const bifrost = document.getElementById('bifrost');
+        const lightning = document.getElementById('lightning');
+        
+        function triggerLightning() {
+            lightning.classList.add('flash');
+            setTimeout(() => lightning.classList.remove('flash'), 300);
+        }
+        
+        function activateBifrost() {
+            bifrost.classList.add('active');
+        }
+        
+        function deactivateBifrost() {
+            bifrost.classList.remove('active');
+        }
+        
+        function animateYearTransition() {
+            const yearElement = document.getElementById('year');
+            setTimeout(() => {
+                yearElement.textContent = '2026';
+            }, 3000);
+        }
+        
+        function showBuilding() {
+            const building = document.getElementById('buildingImg');
+            setTimeout(() => {
+                building.classList.add('show');
+            }, 1000);
+        }
+        
+        function showBuilding2() {
+            const building = document.getElementById('buildingImg2');
+            building.classList.add('show');
+        }
+        
+        function showLogo() {
+            const scripture = document.getElementById('scripture');
+            const logo = document.getElementById('logoImg');
+            
+            // Show scripture first
+            setTimeout(() => {
+                scripture.style.opacity = '1';
+            }, 500);
+            
+            // Fade to logo
+            setTimeout(() => {
+                scripture.style.transition = 'opacity 1s';
+                scripture.style.opacity = '0';
+                logo.classList.add('show');
+            }, 2000);
+        }
+        
+        function runSegment(index) {
+            if (index >= sequence.length) return;
+            
+            const step = sequence[index];
+            const segment = document.getElementById(`segment${step.segment}`);
+            
+            // Hide previous segment
+            if (index > 0) {
+                const prevSegment = document.getElementById(`segment${sequence[index-1].segment}`);
+                prevSegment.classList.add('hide');
+            }
+            
+            // Show current segment
+            segment.classList.add('show');
+            
+            // Trigger effects
+            step.effects.forEach(effect => {
+                if (effect === 'lightning') triggerLightning();
+                if (effect === 'bifrost') activateBifrost();
+                if (effect === 'yearTransition') animateYearTransition();
+                if (effect === 'showBuilding') showBuilding();
+                if (effect === 'showBuilding2') showBuilding2();
+                if (effect === 'showLogo') showLogo();
+            });
+            
+            // Schedule next segment
+            setTimeout(() => {
+                if (step.effects.includes('bifrost')) {
+                    deactivateBifrost();
+                }
+                runSegment(index + 1);
+            }, step.duration);
+        }
+        
+        function startPresentation() {
+            // Hide start screen
+            document.getElementById('startScreen').classList.add('hidden');
+            
+            // Show content
+            document.getElementById('content').classList.add('active');
+            
+            // Start music
+            const music = document.getElementById('bgMusic');
+            music.play().catch(e => {
+                console.log('Music autoplay blocked. User may need to enable autoplay.');
+            });
+            
+            // Start visual sequence
+            runSegment(0);
+        }
+        
+        // Load user images
+        window.addEventListener('DOMContentLoaded', function() {
+            // Set building image
+            // User needs to update this path to their actual image file
+            document.getElementById('buildingImg').src = 'GBC-bldg.png';
+            document.getElementById('buildingImg2').src = 'GBC-bldg.png';
+            
+            // Set logo image
+            document.getElementById('logoImg').src = 'GBC_logo.png';
+            
+            // Set music file
+            document.getElementById('bgMusic').src = 'GBC-Video.mp3';
+        });
+        
+        // Press R to restart
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'r' || e.key === 'R') {
+                location.reload();
+            }
+        });
+    </script>
+</body>
+</html>
