@@ -121,7 +121,7 @@
             font-size: 3em;
             color: #ffd700;
             text-align: center;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
             text-shadow: 0 0 30px #ffd700;
         }
         
@@ -180,7 +180,7 @@
             justify-content: center;
             align-items: center;
             opacity: 0;
-            padding: 2em;
+            padding: 3em;
         }
         
         .segment.show {
@@ -203,28 +203,37 @@
         
         /* Typography */
         .segment h1 {
-            font-size: 6em;
+            font-size: 5em;
             font-weight: 900;
             color: #ffd700;
             text-shadow: 0 0 40px #ffd700, 0 0 80px #ffd700;
-            margin-bottom: 0.2em;
-            letter-spacing: 0.1em;
+            margin: 0.2em 0;
+            letter-spacing: 0.08em;
+            line-height: 1.2;
         }
         
         .segment h2 {
-            font-size: 4em;
+            font-size: 3.5em;
             font-weight: 700;
             color: #fff;
             text-shadow: 0 0 30px #00d4ff;
             margin: 0.3em 0;
         }
         
-        .segment p {
-            font-size: 2.5em;
+        .segment h3 {
+            font-size: 2.8em;
+            font-weight: 600;
             color: #ddd;
-            line-height: 1.5;
-            max-width: 900px;
-            margin: 0.5em 0;
+            margin: 0.3em 0;
+            line-height: 1.4;
+        }
+        
+        .segment p {
+            font-size: 2em;
+            color: #ddd;
+            line-height: 1.6;
+            max-width: 1100px;
+            margin: 0.5em auto;
         }
         
         .emphasis {
@@ -234,25 +243,39 @@
         }
         
         .date {
-            font-size: 4.5em !important;
+            font-size: 4em !important;
             color: #ff8c00;
             text-shadow: 0 0 40px #ff8c00;
             font-weight: 900;
         }
         
-        /* Years animation (2003 to 2026) */
+        /* Years animation */
+        .years-container {
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            margin: 0.5em 0;
+        }
+        
         .years {
-            font-size: 8em;
+            font-size: 7em;
             font-weight: 900;
             color: #ffd700;
             text-shadow: 0 0 60px #ffd700;
         }
         
+        .arrow {
+            font-size: 5em;
+            color: #00d4ff;
+            text-shadow: 0 0 30px #00d4ff;
+        }
+        
         /* Building image */
         .building-image {
-            max-width: 60%;
-            max-height: 60%;
+            max-width: 50%;
+            max-height: 50%;
             opacity: 0;
+            margin: 1em 0;
             filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.6));
         }
         
@@ -275,14 +298,14 @@
         
         /* Logo */
         .logo {
-            max-width: 500px;
-            max-height: 500px;
+            max-width: 450px;
+            max-height: 450px;
             opacity: 0;
-            filter: drop-shadow(0 0 50px rgba(255, 215, 0, 0.9));
+            filter: drop-shadow(0 0 60px rgba(255, 215, 0, 1));
         }
         
         .logo.show {
-            animation: logoReveal 2s forwards;
+            animation: logoReveal 2s forwards, logoPulse 3s ease-in-out infinite 2s, logoFadeOut 1.5s forwards 4.5s;
         }
         
         @keyframes logoReveal {
@@ -296,6 +319,24 @@
             }
         }
         
+        @keyframes logoPulse {
+            0%, 100% { 
+                filter: drop-shadow(0 0 60px rgba(255, 215, 0, 1));
+            }
+            50% { 
+                filter: drop-shadow(0 0 80px rgba(255, 215, 0, 1));
+            }
+        }
+        
+        @keyframes logoFadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
         /* Deep blue background for logo */
         .deep-blue-bg {
             background: radial-gradient(circle at center, #0a1a4d 0%, #000 100%);
@@ -303,26 +344,37 @@
         
         /* Scripture style */
         .scripture {
-            font-size: 2.2em !important;
+            font-size: 2.5em !important;
             font-style: italic;
-            color: #aaa;
-            line-height: 1.8;
-            margin-top: 1em;
+            color: #bbb;
+            line-height: 1.6;
+            margin: 1em 0 !important;
+            max-width: 900px;
         }
         
         .reference {
-            font-size: 1.8em !important;
+            font-size: 2em !important;
             color: #ffd700;
-            margin-top: 0.5em;
+            margin: 0.5em 0 !important;
+            font-weight: 600;
         }
         
-        /* Text overlay */
-        .text-overlay {
-            font-size: 2.8em;
+        /* Agenda list */
+        .agenda-list {
+            list-style: none;
+            font-size: 1.8em;
+            color: #ddd;
+            margin: 1em 0;
+            line-height: 1.8;
+        }
+        
+        .agenda-list li {
+            margin: 0.4em 0;
+        }
+        
+        .agenda-list .highlight {
             color: #ffd700;
             font-weight: 700;
-            text-shadow: 0 0 30px #ffd700;
-            margin-top: 1em;
         }
     </style>
 </head>
@@ -335,50 +387,72 @@
     
     <!-- Start Screen -->
     <div class="start-screen" id="startScreen">
-        <h1>GBC Annual Corporate Meeting</h1>
+        <h1>GBC Annual Corporate Meeting<br/>Announcement</h1>
         <div class="instructions">
-            <p><strong>Instructions for Recording:</strong></p>
-            <p>1. Start your screen recording software (OBS, QuickTime, etc.)</p>
-            <p>2. Click the button below to begin</p>
-            <p>3. Read the script (see separate timing guide)</p>
-            <p>4. Music will play automatically</p>
-            <p>5. Total length: 27-28 seconds</p>
+            <p><strong>Complete Auto-Play Video</strong></p>
+            <p>1. Start your screen recording</p>
+            <p>2. Click START below</p>
+            <p>3. Video plays automatically with music</p>
+            <p>4. Scripture at 18s, logo at 21s, fades at 25.5s</p>
+            <p>Total: 27 seconds (matches your music!)</p>
         </div>
-        <button class="start-button" onclick="startPresentation()">START PRESENTATION</button>
+        <button class="start-button" onclick="startPresentation()">START</button>
     </div>
     
     <!-- Main Content -->
     <div class="content" id="content">
-        <!-- Segment 1: The Journey (0-6 sec) -->
+        <!-- Segment 1: The Journey (0-4 sec) -->
         <div class="segment" id="segment1">
-            <h1 class="years" id="year">2003</h1>
+            <h3>From the founding in</h3>
+            <div class="years-container">
+                <span class="years">2003</span>
+                <span class="arrow">  to  </span>
+                <span class="years">2026</span>
+            </div>
+            <h1>A New Chapter Begins</h1>
         </div>
         
-        <!-- Segment 2: The Meeting (6-17 sec) -->
+        <!-- Segment 2: The Meeting (4-9 sec) -->
         <div class="segment" id="segment2">
-            <h2>ANNUAL CORPORATE MEETING</h2>
-            <p class="date">February 25, 2026</p>
-            <!-- Building image will be added here -->
-            <img id="buildingImg" class="building-image" alt="Church Building">
+            <h3>It is a time of <span class="emphasis">expansion</span></h3>
+            <h2 style="margin-top: 1em;">Annual Corporate Meeting</h2>
+            <p class="date">February 25, 2026 7:30 PM</p>
+            <ul class="agenda-list">
+                <li><h4>Agenda</h4></li>
+                <li>Annual Financial Review</li>
+                <li>Board Highlights</li>
+                <li>Leadership Highlights</li>
+                <li>Board Elections</li>
+                <li class="highlight">Articles of Incorporation Amendment</li>
+                <li style="font-size: 0.9em; color: #aaa; font-style: italic;">(First time since 2003)</li>
+            </ul>
         </div>
         
-        <!-- Segment 3: The Why (17-21 sec) -->
+        <!-- Segment 3: The Why (9-14 sec) -->
         <div class="segment" id="segment3">
-            <img id="buildingImg2" class="building-image" alt="Church Building">
-            <p class="text-overlay">BUILDING PURCHASED • MISSION EXPANDING</p>
+            <img id="buildingImg" class="building-image" alt="Church Building">
+            <h1 style="font-size: 3.5em; margin-top: 0.5em;">We Purchased a Building</h1>
+            <h2>Our Mission is Expanding</h2>
+            <p style="font-size: 1.8em; margin-top: 0.5em;">Legal counsel recommends updating<br/>our founding documents</p>
         </div>
         
-        <!-- Segment 4: Call to Action (21-23 sec) -->
+        <!-- Segment 4: Call to Action (14-18 sec) -->
         <div class="segment" id="segment4">
-            <h1>YOUR PARTICIPATION</h1>
-            <h1 class="emphasis">IS ESSENTIAL</h1>
+            <h1 style="font-size: 6em;">Your Participation</h1>
+            <h1 style="font-size: 6em;" class="emphasis">Is Essential</h1>
         </div>
         
-        <!-- Segment 5: Scripture & Logo (23-27 sec) -->
+        <!-- Segment 5: Scripture (18-21 sec) -->
         <div class="segment deep-blue-bg" id="segment5">
-            <p class="scripture" id="scripture">"The word of God continued<br>to spread and flourish"</p>
-            <p class="reference">Acts 12:24</p>
+            <p class="scripture">"The word of God continued<br/>to spread and flourish"</p>
+            <p class="reference">— Acts 12:24 —</p>
+        </div>
+        
+        <!-- Segment 6: Logo Only (21-27 sec) -->
+        <div class="segment deep-blue-bg" id="segment6">
             <img id="logoImg" class="logo" alt="GBC Logo">
+            <p class="date">February 25, 2026 7:30 PM</p>
+
         </div>
     </div>
     
@@ -399,13 +473,14 @@
             starsContainer.appendChild(star);
         }
         
-        // Timing sequence
+        // Timing sequence - Total 27 seconds with scripture at 18-21 sec
         const sequence = [
-            { segment: 1, duration: 6000, effects: ['lightning', 'yearTransition'] },
-            { segment: 2, duration: 11000, effects: ['bifrost', 'showBuilding'] },
-            { segment: 3, duration: 4000, effects: ['lightning', 'showBuilding2'] },
-            { segment: 4, duration: 2000, effects: ['lightning', 'bifrost'] },
-            { segment: 5, duration: 5000, effects: ['bifrost', 'showLogo'] }
+            { segment: 1, duration: 4000, effects: ['lightning', 'bifrost'] },      // 0-4 sec (The Journey)
+            { segment: 2, duration: 5000, effects: ['bifrost'] },                   // 4-9 sec (Meeting + agenda)
+            { segment: 3, duration: 5000, effects: ['lightning', 'showBuilding'] }, // 9-14 sec (Building photo)
+            { segment: 4, duration: 4000, effects: ['lightning', 'bifrost'] },      // 14-18 sec (Participation)
+            { segment: 5, duration: 3000, effects: ['bifrost'] },                   // 18-21 sec (Scripture)
+            { segment: 6, duration: 6000, effects: ['bifrost', 'showLogo'] }        // 21-27 sec (Logo only)
         ];
         
         let currentStep = 0;
@@ -425,40 +500,19 @@
             bifrost.classList.remove('active');
         }
         
-        function animateYearTransition() {
-            const yearElement = document.getElementById('year');
-            setTimeout(() => {
-                yearElement.textContent = '2026';
-            }, 3000);
-        }
-        
         function showBuilding() {
             const building = document.getElementById('buildingImg');
             setTimeout(() => {
                 building.classList.add('show');
-            }, 1000);
-        }
-        
-        function showBuilding2() {
-            const building = document.getElementById('buildingImg2');
-            building.classList.add('show');
+            }, 500);
         }
         
         function showLogo() {
-            const scripture = document.getElementById('scripture');
             const logo = document.getElementById('logoImg');
-            
-            // Show scripture first
+            // Logo appears immediately with fade-in animation
             setTimeout(() => {
-                scripture.style.opacity = '1';
-            }, 500);
-            
-            // Fade to logo
-            setTimeout(() => {
-                scripture.style.transition = 'opacity 1s';
-                scripture.style.opacity = '0';
                 logo.classList.add('show');
-            }, 2000);
+            }, 500);
         }
         
         function runSegment(index) {
@@ -471,26 +525,28 @@
             if (index > 0) {
                 const prevSegment = document.getElementById(`segment${sequence[index-1].segment}`);
                 prevSegment.classList.add('hide');
+                setTimeout(() => {
+                    prevSegment.style.display = 'none';
+                }, 500);
             }
             
             // Show current segment
-            segment.classList.add('show');
+            segment.style.display = 'flex';
+            setTimeout(() => {
+                segment.classList.add('show');
+            }, 50);
             
             // Trigger effects
             step.effects.forEach(effect => {
                 if (effect === 'lightning') triggerLightning();
                 if (effect === 'bifrost') activateBifrost();
-                if (effect === 'yearTransition') animateYearTransition();
                 if (effect === 'showBuilding') showBuilding();
-                if (effect === 'showBuilding2') showBuilding2();
                 if (effect === 'showLogo') showLogo();
             });
             
             // Schedule next segment
             setTimeout(() => {
-                if (step.effects.includes('bifrost')) {
-                    deactivateBifrost();
-                }
+                deactivateBifrost();
                 runSegment(index + 1);
             }, step.duration);
         }
@@ -505,19 +561,17 @@
             // Start music
             const music = document.getElementById('bgMusic');
             music.play().catch(e => {
-                console.log('Music autoplay blocked. User may need to enable autoplay.');
+                console.log('Music autoplay may be blocked. Click to enable.');
             });
             
             // Start visual sequence
             runSegment(0);
         }
         
-        // Load user images
+        // Load user files
         window.addEventListener('DOMContentLoaded', function() {
             // Set building image
-            // User needs to update this path to their actual image file
             document.getElementById('buildingImg').src = 'GBC-bldg.png';
-            document.getElementById('buildingImg2').src = 'GBC-bldg.png';
             
             // Set logo image
             document.getElementById('logoImg').src = 'GBC_logo.png';
